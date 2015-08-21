@@ -1,0 +1,2 @@
+# NewsMap
+HackNTU project
