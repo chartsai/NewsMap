@@ -6,6 +6,25 @@ sys.setdefaultencoding('utf8')
 
 from google.appengine.ext import db
 
+import math
+
+LAT_DEVIATION = 0.005
+LNG_DEVIATION = 0.005
+
+def getlandmark(lat, lng):
+    for latlng in LANDMARK_KEYWORDS:
+        ll = latlng.split(",")
+        landlat = float(ll[0])
+        landlng = float(ll[1])
+
+        if math.fabs(landlat - float(lat)) < LAT_DEVIATION:
+            if math.fabs(landlng - float(lng)) < LNG_DEVIATION:
+                lm = Landmark()
+                lm.loadfromdb(latlng)
+                return lm
+    return None
+
+
 class LandmarkModel(db.Model):
     location = db.StringProperty(required=True)
     related_news = db.StringListProperty(str, default=[], required=True)

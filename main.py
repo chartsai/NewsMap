@@ -50,20 +50,24 @@ def query_landmark():
     lat = request.args.get('lat')
     lng = request.args.get('lng')
 
-    if lat == None or lng == None:
+    # if lat == None or lng == None:
+    #     return '{}'
+    #
+    # latlng = str(lat) + "," + str(lng)
+    #
+    # if latlng not in landmark.LANDMARK_KEYWORDS:
+    #     return '{}'
+
+    lm = landmark.getlandmark(lat, lng)
+    if lm == None:
         return '{}'
 
-    latlng = str(lat) + "," + str(lng)
-
-    if latlng not in landmark.LANDMARK_KEYWORDS:
-        return '{}'
-
-    lm = landmark.Landmark()
-    lm.loadfromdb(latlng)
+    first_keyword = landmark.LANDMARK_KEYWORDS[lm.location][0]
     related_news_ids = lm.related_news
 
     logging.info("Query position has " + str(len(related_news_ids)) + " news")
 
+    return_dict = {'landmark_name': first_keyword}
     return_list = []
     for news_key in related_news_ids:
         key = db.Key(news_key)
@@ -73,8 +77,9 @@ def query_landmark():
             dic['news_id'] = news_key
             dic['title'] = entry.title
             return_list.append(dic)
+    return_dict['news_list'] = return_list
 
-    return json.dumps(return_list)
+    return json.dumps(return_dict)
 
 @app.route('/trigger_background_landmark')
 def landmarkWorker():
