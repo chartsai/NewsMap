@@ -21,13 +21,13 @@ from bs4 import BeautifulSoup
 # the App Engine WSGI application server.
 @app.route('/testNews')
 def testNews():
-    news = News()
-    result = news.loadfromdb("URL")
-    return "Result: " + str(news)
+    # Try to add test url
+    fetchWeb.test_parse_url()
 
-@app.route('/addTestNews')
-def addTestNews():
-    return "Do nothing"
+    news = News()
+    testurl = 'http://www.appledaily.com.tw/realtimenews/article/new/20150822/675760/'
+    result = news.loadfromdb(testurl)
+    return "Result: " + str(news)
 
 @app.route('/trigger_background_parsing')
 def parserWorker():

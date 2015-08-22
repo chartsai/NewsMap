@@ -10,12 +10,12 @@ from google.appengine.ext import db
 class NewsModel(db.Model):
     news_url = db.StringProperty(required=True)
     title = db.StringProperty()
-    content = db.StringProperty()
+    content = db.TextProperty()
     popularity = db.IntegerProperty()
     news_datetime = db.DateTimeProperty()
     news_first_image_url = db.StringProperty()
     news_source = db.StringProperty()
-    parse_datetime = db.DateTimeProperty(auto_now_add=True)
+    parse_datetime = db.DateTimeProperty(auto_now=True)
 
 class News:
     def __init__(self, news_url="", title="News", content="", popularity=0,
@@ -44,7 +44,7 @@ class News:
             # create new entry
             key = NewsModel(news_url = self.news_url,
                             title = self.title,
-                            content = self.content,
+                            content = db.Text(self.content, encoding='utf-8'),
                             popularity = self.popularity,
                             news_datetime = self.news_datetime,
                             news_first_image_url = self.news_first_image_url,
@@ -54,7 +54,7 @@ class News:
         else:
             # update exist entry
             news_entry.title = self.title
-            news_entry.content = self.content
+            news_entry.content = db.Text(self.content, encoding='utf-8')
             news_entry.popularity = self.popularity
             news_datetime = self.news_datetime
             news_entry.news_first_image_url = self.news_first_image_url
@@ -67,7 +67,7 @@ class News:
         if news_entry != None:
             self.news_url = news_entry.news_url
             self.title = news_entry.title
-            self.content = news_entry.content
+            self.content = str(news_entry.content)
             self.popularity = news_entry.popularity
             self.news_datetime = news_entry.news_datetime
             self.news_first_image_url = news_entry.news_first_image_url

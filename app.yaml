@@ -14,8 +14,6 @@ handlers:
 
 - url: /.*
   script: main.app
-# - url: /addTestNews
-# - url: /testNews
 
 libraries:
 - name: jinja2
