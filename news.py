@@ -3,8 +3,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-from bs4 import BeautifulSoup
-
 from google.appengine.ext import db
 
 class NewsModel(db.Model):
