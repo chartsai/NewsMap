@@ -1,3 +1,4 @@
+import logging
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -22,6 +23,10 @@ class News:
         self.setnewsdata(news_url, title, content, popularity, news_datetime,
                          news_first_image_url, news_source)
 
+    def __str__(self):
+        str_args = (str(self.news_url), str(self.title), str(self.popularity),
+                    str(self.news_source), str(self.news_datetime))
+        return "URL: %s, title: %s, popularity: %s, source: %s, news_datetime: %s" % str_args
 
     def setnewsdata(self, news_url="", title="News", content="", popularity=0,
                     news_datetime="", news_first_image_url="", news_source="Unknown"):
