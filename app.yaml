@@ -12,6 +12,11 @@ handlers:
   static_files: index.html
   upload: index\.html
 
+- url: /.*
+  script: main.app
+# - url: /addTestNews
+# - url: /testNews
+
 libraries:
 - name: jinja2
   version: "2.6"
