@@ -33,12 +33,16 @@
       function initialize() {
         var mapOptions = {
           center: LOCATION_TAIPEI_STATION,
-          zoom: 12
+          zoom: 12,
+          /*styles : [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]}] */
+          styles: [{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"water","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#C6E2FF"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"color":"#C5E3BF"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#D1D1B8"}]}] 
         };
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        
 
         // TODO highlight some position.
         addClickMapListener();
+  
       }
 
       function addClickMapListener() {
@@ -105,6 +109,17 @@
       <li>柯P的未來：北市全面改用行動..</li>
       <li>年燒1.5隻哥吉拉　柯Ｐ籲金紙..</li>
       <li>台北市水太濁就停水　民眾開...</li>
+      <li>談李登輝投書內容　柯哽咽：...</li>
+      <li>天鵝逼近　北市：人力不足將...</li>
+      <li>北市推願景平台　邀民眾打造...</li>
+      <li>上任7個月　柯P：每市民減債...</li>
+      <li>辦活動卻建議輪椅族別參加 北..</li>
+      <li>北市府駁「利用動物」指控　...</li>
+      <li>北市府也遭淹　地下餐廳走道...</li>
+      <li>供黃水被罵翻　柯：增列濁度...</li>
+      <li>路燈高掛樹頭　公燈處：會儘...</li>
+      <li>柯P推酒駕連坐　乘客更醉怎麼..</li>
+      <li>藍綠都在罵　柯P災後復舊會議..</li>
     </ul>
     </div>
     <script>
