@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+
 <html>
   <head>
     <title>News Map</title>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <!-- bootstrap (navigation bar) -->
@@ -91,14 +92,46 @@
       }
     </script>
 
-    <div id="news_drawer"><h1>Put News List Here</h1></div>
+    <div id="news_drawer" class="news_drawer">
+    <h1 class="landmark">台北市政府</h1>
+    <ul class="list">
+      <li>【更新】獨派下午抗議柯文哲...</li>
+      <li>【更新】北市人事超標全國之...</li>
+      <li>減章制度霧煞煞　北市府：僅...</li>
+      <li>批發價跌、零售價飆　柯P要盯..</li>
+      <li>遭轟「柯屁」、騙選票　柯：...</li> 
+      <li>柯P：調整公車路網　只有我能..</li>
+      <li>柯文哲自爆　每天看都發局和...</li>
+      <li>柯P的未來：北市全面改用行動..</li>
+      <li>年燒1.5隻哥吉拉　柯Ｐ籲金紙..</li>
+      <li>台北市水太濁就停水　民眾開...</li>
+    </ul>
+    </div>
     <script>
       function toggleNewsDrawer() {
         $('#news_drawer').slideToggle();
       }
     </script>
 
-    <div id="news_board"><h1>Put News Content Here</h1></div>
+    <div id="news_board" class="news_board">
+    <h1 class="news_title">【更新】北市人事超標全國之冠　柯：先除冗事再來瘦身</h1>
+    <div class="date"> 
+    <time datetime="2015/08/22/">2015年08月22日16:15</time>
+    </div>
+    <p class="article">(更新：新增北市人事處說法）<br/>
+中央人事行政總處公布最新統計，北市府是全台所有地方政府中，人事超標最嚴重的縣市。台北市長柯文哲今天表示，目前北市人事處已在草擬人員編制瘦身計畫，但他認為最重要的是先把冗事拿掉，這些冗事如果消除，再回頭來思考如何瘦身？要裁減多少人。<br/>
+ 
+根據人事行政總處統計，地方政府人事超標情形嚴重，每10個公務員就有1個是非正式編制外的約聘僱人員，而台北市又是超標最嚴重的縣市，人數高達5522人。<br/>
+ 
+柯表示，他已和北市人事處長討論過很多次，現在每開辦一個新事業就要找人，但從來沒檢討怎麼「瘦身」，所以已要求人事處草擬北市府人員編制瘦身計畫，但此事事關重大，他還要慢慢想想看。<br/>
+ 
+柯文哲強調，目前北市問題重點不再冗員而是冗事，以公文上頭的印章為例，他曾經看過一份公文上頭有高達30個章，他不認為真的有30個人看，所以會把冗事拿掉，再來回頭思考怎麼瘦身。<br/>
+
+北市人事處管理科科長王秋萍表示，不清楚中央的統計基準。但她推測，中央公布的5522這個數字，可能是把約聘僱人員、臨時人員以及駐衛警加起來，但北市自行統計的數據為5689人，分別是約聘僱人員1924人、臨時人員2879人與886位駐衛警。但王強調，臨時人員與駐衛警都已經遇缺不補，約聘僱人員則按各局處需求增加。由於不清楚中央數字從何而來，因此北市周一將行文詢問再做回應。<br/>(陳思豪／台北報導)</p>
+<img src="http://twimg.edgesuite.net/images/ReNews/20150822/420_e5d3394d8193c9e34ad83f7b2954a7bf.jpg">
+<p class="popularity">人氣(10236)</p>
+<a href="http://www.appledaily.com.tw/realtimenews/article/life/20150822/675564/"class="url">原文連結</a>
+    </div>    
     <script>
       function toggleNewsBoard() {
         $("#news_board").slideToggle();

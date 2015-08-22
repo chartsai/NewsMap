@@ -2,10 +2,36 @@
   position:fixed;
   right: 0;
   top: 0;
-  padding-top: 25px;
+  padding-top: 3%;
   width: 50%;
   height: 70%;
   background-color: #EEFFEE;
-  z-index: 9000;
+  z-index: 8000;
   display: none; /*display by toggle*/
+  font-family: "san-serif","微軟正黑體","Times New Roman","Arial","Helvetica";
+  padding-left: 3%;
+  padding-right: 3%;
+  float:left;
+  overflow: auto;
+}
+
+.news_title {
+	font-size:180%;
+}
+
+.article {
+	font-size:100%;
+}
+
+.date {
+	text-align: right;
+}
+
+.popularity {
+	text-decoration:underline;
+	word-spacing: 5px;
+}
+
+.url {
+	text-decoration:underline;
 }
