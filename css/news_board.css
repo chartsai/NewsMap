@@ -1,0 +1,11 @@
+#news_board {
+  position:fixed;
+  right: 0;
+  top: 0;
+  padding-top: 25px;
+  width: 50%;
+  height: 70%;
+  background-color: #EEFFEE;
+  z-index: 9000;
+  display: none; /*display by toggle*/
+}

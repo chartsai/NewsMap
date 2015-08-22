@@ -4,15 +4,19 @@
     <title>News Map</title>
 
     <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <!-- bootstrap (navigation bar) -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/navibar_style.css">
+    <!-- news drawer -->
+    <link rel="stylesheet" href="/css/news_drawer.css">
+    <!-- news board -->
+    <link rel="stylesheet" href="/css/news_board.css">
 
     <!-- Google Map -->
     <style type="text/css">
-      html, body, #map-canvas { height: 100%; margin: 0; padding-top: 25px;}
+      html, body, #map-canvas { height: 100%; margin: 0; padding-top: 25px; z-index: 0;}
     </style>
     <script
       var API_KEY="AIzaSyCJlrhTKQ6xy8CGPU6W2d-kcogBZ6_hBY0";
@@ -20,7 +24,6 @@
     </script>
     <script>
 
-      // same as { lat: 25.0477505, lng: 121.5170599};
       var LOCATION_TAIPEI_STATION = new google.maps.LatLng(25.0477505, 121.5170599);
       var LOCATION_NTU = new google.maps.LatLng(25.0162596, 121.5381254);
 
@@ -33,16 +36,9 @@
         };
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-        myInit();
-
+        // TODO highlight some position.
       }
       google.maps.event.addDomListener(window, 'load', initialize);
-
-      function myInit() {
-        var dLat = 0.01;
-        var dLng = 0.01;
-      }
-
     </script>
   </head>
   <body>
@@ -62,5 +58,36 @@
     </nav>
 
     <div id="map-canvas"></div>
+
+    <script>
+      $('#map-canvas').css({'width':'100%','height':'50%'});
+      google.maps.event.trigger(map-canvas, 'resize');
+    </script>
+
+    <button type="button" id="news_drawer_toggle_button">Toggle Drawer!</button>
+    <button type="button" id="news_board_toggle_button">Toggle News Board!</button>
+    <script>
+      $('#news_drawer_toggle_button').click(function() {
+        toggleNewsDrawer();
+      });
+
+      $('#news_board_toggle_button').click(function() {
+        toggleNewsBoard();
+      });
+    </script>
+
+    <div id="news_drawer"><h1>Put News List Here</h1></div>
+    <script>
+      function toggleNewsDrawer() {
+        $('#news_drawer').slideToggle();
+      }
+    </script>
+
+    <div id="news_board"><h1>Put News Content Here</h1></div>
+    <script>
+      function toggleNewsBoard() {
+        $("#news_board").slideToggle();
+      }
+    </script>
   </body>
 </html>
