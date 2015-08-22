@@ -43,6 +43,7 @@ class News:
                             news_first_image_url = self.news_first_image_url,
                             news_source = self.news_source)
             db.put(key)
+            return "create new News"
         else:
             # update exist entry
             news_entry.title = self.title
@@ -52,9 +53,10 @@ class News:
             news_entry.news_first_image_url = self.news_first_image_url
             news_entry.news_source = self.news_source
             db.put(news_entry)
+            return "Update exist News"
 
     def loadfromdb(self, url):
-        news_entry = NewsModel.all().filter("news_url =", self.news_url).get()
+        news_entry = NewsModel.all().filter("news_url =", url).get()
         if news_entry != None:
             self.news_url = news_entry.news_url
             self.title = news_entry.title
@@ -63,3 +65,6 @@ class News:
             self.news_datetime = news_entry.news_datetime
             self.news_first_image_url = news_entry.news_first_image_url
             self.news_source = news_entry.news_source
+            return "load DB succeed"
+        else:
+            return "The loaded News is not exist in DB"

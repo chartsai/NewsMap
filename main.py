@@ -9,15 +9,15 @@ from news import News
 @app.route('/testNews')
 def testNews():
     news = News()
-    news.loadfromdb("URL")
+    result = news.loadfromdb("URL")
     return_str = str(news.title) + str(news.content)
-    return return_str
+    return "Result: " + result + "<br>" + return_str
 
 @app.route('/addTestNews')
 def addTestNews():
-    news = News("URL")
-    news.writetodb()
-    return "Write News(URL) to db"
+    news = News("URL", title="MyNews", content="Some content")
+    result = news.writetodb()
+    return "Write News(URL) to db, result is: " + result
 
 
 @app.errorhandler(404)
