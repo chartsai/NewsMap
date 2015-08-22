@@ -37,7 +37,16 @@
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
         // TODO highlight some position.
+        addClickMapListener();
       }
+
+      function addClickMapListener() {
+        google.maps.event.addListener(map, "click", function (e) {
+            var latLng = e.latLng;
+            updateClickPosition(latLng.lat(), latLng.lng());
+        });
+      }
+
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
   </head>
@@ -66,6 +75,8 @@
 
     <button type="button" id="news_drawer_toggle_button">Toggle Drawer!</button>
     <button type="button" id="news_board_toggle_button">Toggle News Board!</button>
+    <div><h5>(This White bar will be removed later.)</h5></div>
+    <div id="click_position">Have not clicked</div>
     <script>
       $('#news_drawer_toggle_button').click(function() {
         toggleNewsDrawer();
@@ -74,6 +85,10 @@
       $('#news_board_toggle_button').click(function() {
         toggleNewsBoard();
       });
+
+      function updateClickPosition(lat, lng) {
+        $('#click_position').html("Click position: (" + lat + "," + lng + ")");
+      }
     </script>
 
     <div id="news_drawer"><h1>Put News List Here</h1></div>

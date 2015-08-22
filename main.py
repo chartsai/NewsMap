@@ -1,10 +1,16 @@
 #coding=UTF-8
+import logging
+
 from flask import Flask
+from flask import request
+
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
 import os
 import urllib2 
+
+from google.appengine.api import taskqueue
 
 from news import News
 from time import strftime
@@ -14,7 +20,6 @@ from bs4 import BeautifulSoup
 # the App Engine WSGI application server.
 @app.route('/testNews')
 def testNews():
-    news = News()
     result = news.loadfromdb("URL")
     return_str = str(news.title) + str(news.content)
     return "Result: " + result + "<br>" + return_str
@@ -43,7 +48,6 @@ def do_parsing():
 	                    contents = soup.find("p", {"id":"summary"}) 
 	                    while "</iframe>" in contents.renderContents():
 	                        contents.iframe.decompose()
-
 	                    desc_contents = contents.renderContents()
 	                    print desc_contents
 	                    popularity = soup.find("a", attrs={"class":"function_icon clicked"})
@@ -62,6 +66,18 @@ def do_parsing():
 	                    os.system("pause")
                     	news = News(news_url, title, desc_contents, popularity, news_datetime,"", news_source)
     					result = news.writetodb()
+
+@app.route('/trigger_background_parsing')
+def parserWorker():
+    taskqueue.add(queue_name='default', url='/perform_parsing', params={})
+    return "Recieve: "
+
+@app.route('/perform_parsing', methods=['POST'])
+def perform_parsing():
+    logging.info("perform_parsing start")
+    # TODO put looping parsing code here.
+    logging.info("perform_parsing end")
+    return "Performing background parsing end"
 
 @app.errorhandler(404)
 def page_not_found(e):
