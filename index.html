@@ -35,14 +35,14 @@
           center: LOCATION_TAIPEI_STATION,
           zoom: 12,
           /*styles : [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]}] */
-          styles: [{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"water","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#C6E2FF"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"color":"#C5E3BF"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#D1D1B8"}]}] 
+          styles: [{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"water","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#C6E2FF"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"color":"#C5E3BF"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#D1D1B8"}]}]
         };
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-        
+
 
         // TODO highlight some position.
         addClickMapListener();
-  
+
       }
 
       function addClickMapListener() {
@@ -96,61 +96,85 @@
       }
     </script>
 
-    <div id="news_drawer" class="news_drawer">
+    <div id="news_drawer">
     <h1 class="landmark">台北市政府</h1>
-    <ul class="list">
-      <li>【更新】獨派下午抗議柯文哲...</li>
-      <li>【更新】北市人事超標全國之...</li>
-      <li>減章制度霧煞煞　北市府：僅...</li>
-      <li>批發價跌、零售價飆　柯P要盯..</li>
-      <li>遭轟「柯屁」、騙選票　柯：...</li> 
-      <li>柯P：調整公車路網　只有我能..</li>
-      <li>柯文哲自爆　每天看都發局和...</li>
-      <li>柯P的未來：北市全面改用行動..</li>
-      <li>年燒1.5隻哥吉拉　柯Ｐ籲金紙..</li>
-      <li>台北市水太濁就停水　民眾開...</li>
-      <li>談李登輝投書內容　柯哽咽：...</li>
-      <li>天鵝逼近　北市：人力不足將...</li>
-      <li>北市推願景平台　邀民眾打造...</li>
-      <li>上任7個月　柯P：每市民減債...</li>
-      <li>辦活動卻建議輪椅族別參加 北..</li>
-      <li>北市府駁「利用動物」指控　...</li>
-      <li>北市府也遭淹　地下餐廳走道...</li>
-      <li>供黃水被罵翻　柯：增列濁度...</li>
-      <li>路燈高掛樹頭　公燈處：會儘...</li>
-      <li>柯P推酒駕連坐　乘客更醉怎麼..</li>
-      <li>藍綠都在罵　柯P災後復舊會議..</li>
+    <ul id="article_list">
+      <!-- -->
     </ul>
     </div>
     <script>
       function toggleNewsDrawer() {
         $('#news_drawer').slideToggle();
       }
+
+      function onArticleItemClick(article_id) {
+        loadNewsAjax(article_id);
+      }
+
+      function updateNewsDrawer(articles) {
+        var htmlstr = "";
+        for (i in articles) {
+          var title = articles[i]["title"];
+          var id = articles[i]["news_id"];
+
+          htmlstr += '<li><a onclick="onArticleItemClick(\'' + id + '\')">'+title+'</a></li>';
+        }
+        $("#article_list").html(htmlstr);
+      }
+
+      function queryLocationAjax(lat, lng) {
+        $.ajax({url: "query_landmark?lat=" + lat + "&lng=" + lng,
+          success: function(result){
+            json = JSON.parse(result);
+            updateNewsDrawer(json);
+        }});
+      }
+
+      // TODO querylocation from click point.
+      queryLocationAjax(25.0173405, 121.5397518); // query NTU
+
     </script>
 
     <div id="news_board" class="news_board">
-    <h1 class="news_title">【更新】北市人事超標全國之冠　柯：先除冗事再來瘦身</h1>
-    <div class="date"> 
-    <time datetime="2015/08/22/">2015年08月22日16:15</time>
+    <h1 id="news_title"></h1> <!-- fill when select article -->
+    <div id="datetime"></div> <!-- fill when select article -->
+    <p id="article"> <!-- fill when select article -->
+    <img id="image_url" src=""> <!-- fill when select article -->
+    <p id="popularity"></p> <!-- fill when select article -->
+    <a href='' id="url" target="_blank">原文連結</a> <!-- fill when select article -->
     </div>
-    <p class="article">(更新：新增北市人事處說法）<br/>
-中央人事行政總處公布最新統計，北市府是全台所有地方政府中，人事超標最嚴重的縣市。台北市長柯文哲今天表示，目前北市人事處已在草擬人員編制瘦身計畫，但他認為最重要的是先把冗事拿掉，這些冗事如果消除，再回頭來思考如何瘦身？要裁減多少人。<br/>
- 
-根據人事行政總處統計，地方政府人事超標情形嚴重，每10個公務員就有1個是非正式編制外的約聘僱人員，而台北市又是超標最嚴重的縣市，人數高達5522人。<br/>
- 
-柯表示，他已和北市人事處長討論過很多次，現在每開辦一個新事業就要找人，但從來沒檢討怎麼「瘦身」，所以已要求人事處草擬北市府人員編制瘦身計畫，但此事事關重大，他還要慢慢想想看。<br/>
- 
-柯文哲強調，目前北市問題重點不再冗員而是冗事，以公文上頭的印章為例，他曾經看過一份公文上頭有高達30個章，他不認為真的有30個人看，所以會把冗事拿掉，再來回頭思考怎麼瘦身。<br/>
-
-北市人事處管理科科長王秋萍表示，不清楚中央的統計基準。但她推測，中央公布的5522這個數字，可能是把約聘僱人員、臨時人員以及駐衛警加起來，但北市自行統計的數據為5689人，分別是約聘僱人員1924人、臨時人員2879人與886位駐衛警。但王強調，臨時人員與駐衛警都已經遇缺不補，約聘僱人員則按各局處需求增加。由於不清楚中央數字從何而來，因此北市周一將行文詢問再做回應。<br/>(陳思豪／台北報導)</p>
-<img src="http://twimg.edgesuite.net/images/ReNews/20150822/420_e5d3394d8193c9e34ad83f7b2954a7bf.jpg">
-<p class="popularity">人氣(10236)</p>
-<a href="http://www.appledaily.com.tw/realtimenews/article/life/20150822/675564/"class="url">原文連結</a>
-    </div>    
     <script>
       function toggleNewsBoard() {
         $("#news_board").slideToggle();
       }
+    </script>
+
+    <script>
+      function write_to_news_board(title, datetime, article, popularity, image_url, url) {
+        $("#news_title").html(title);
+        $("#datetime").html(datetime);
+        $("#article").html(article);
+        $("#image_url").attr('src', image_url).load(function(){ this.width;});
+        $("#popularity").html(popularity);
+        $("#url").attr('href', url);
+      }
+
+      function loadNewsAjax(news_id) {
+        $.ajax({url: "query_article?news_key=" + news_id,
+          success: function(result){
+            json = JSON.parse(result);
+            var title = json['title'];
+            var datetime = json['datetime'];
+            var article = json['article'];
+            var popularity = json['popularity'];
+            var image_url = json['image_url'];
+            var url = json['url'];
+
+            write_to_news_board(title, datetime, article, popularity, image_url, url);
+        }});
+      }
+
+      // TODO disable when click map.
     </script>
   </body>
 </html>

@@ -14,7 +14,8 @@
   float:left;
   overflow: auto;
 }
-.news_board {
+
+#news_board {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,fdfdfd+96,fcfcfc+100 */
   background: rgb(255,255,255); /* Old browsers */
   background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(253,253,253,1) 96%, rgba(252,252,252,1) 100%); /* FF3.6+ */
@@ -26,23 +27,23 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fcfcfc',GradientType=0 ); /* IE6-9 */
 }
 
-.news_title {
+#news_title {
 	font-size:180%;
 }
 
-.article {
+#article {
 	font-size:100%;
 }
 
-.date {
+#datetime {
 	text-align: right;
 }
 
-.popularity {
+#popularity {
 	text-decoration:underline;
 	word-spacing: 5px;
 }
 
-.url {
+#url {
 	text-decoration:underline;
 }

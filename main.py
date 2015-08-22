@@ -14,6 +14,7 @@ sys.setdefaultencoding('utf8')
 from google.appengine.api import taskqueue
 from google.appengine.ext import db
 
+import json
 from news import News
 from news import NewsModel
 import fetchWeb
@@ -50,37 +51,30 @@ def query_landmark():
     lng = request.args.get('lng')
 
     if lat == None or lng == None:
-        return 'lat and lng must be given'
+        return '{}'
 
     latlng = str(lat) + "," + str(lng)
 
     if latlng not in landmark.LANDMARK_KEYWORDS:
-        return 'key: ' + latlng + ' has no result'
+        return '{}'
 
-    ret = ""
-    for keyword in landmark.LANDMARK_KEYWORDS[latlng]:
-        ret += keyword + "<br>"
-
-    # TODO show all related news.
     lm = landmark.Landmark()
     lm.loadfromdb(latlng)
     related_news_ids = lm.related_news
 
     logging.info("Query position has " + str(len(related_news_ids)) + " news")
 
+    return_list = []
     for news_key in related_news_ids:
         key = db.Key(news_key)
         entry = NewsModel.all().filter('__key__ =', key).get()
-        if entry == None:
-            logging.info("The entry is None")
-        else:
-            ret += "====================<br>"
-            ret += "key =" + news_key + " <br>"
-            ret += "====================<br>"
-            ret += entry.content
+        if entry != None:
+            dic = {}
+            dic['news_id'] = news_key
+            dic['title'] = entry.title
+            return_list.append(dic)
 
-
-    return "Keywords: " + ret
+    return json.dumps(return_list)
 
 @app.route('/trigger_background_landmark')
 def landmarkWorker():
@@ -118,6 +112,20 @@ def perform_create_landmark():
     logging.info("All database for landmark are completed")
 
     return "Write to db complete"
+
+@app.route('/query_article')
+def query_article():
+    key = db.Key(request.args.get('news_key'))
+    entry = NewsModel.all().filter('__key__ =', key).get()
+    if entry != None:
+        return json.dumps({"title"      : entry.title,
+                           "datetime"   : str(entry.news_datetime),
+                           "article"    : entry.content,
+                           "popularity" : entry.popularity,
+                           "image_url"  : entry.news_first_image_url,
+                           "url"        : entry.news_url})
+    else:
+        return '{}'
 
 @app.errorhandler(404)
 def page_not_found(e):
