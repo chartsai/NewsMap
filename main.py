@@ -32,6 +32,26 @@ def testNews():
     result = news.loadfromdb(testurl)
     return "Result: " + str(news)
 
+@app.route('/parse_hardcode_url')
+def parseHardcodeUrl():
+    url = "http://www.appledaily.com.tw/realtimenews/section/hot/"
+    result = fetchWeb.parse_single_url(url)
+    if result:
+        return "Parse single url succeed: " + url
+    else:
+        return "Parse single url failed... " + url
+
+@app.route('/parse_single_url')
+def parseSingleUrl():
+    url = request.args.get("url")
+    if url == None or url == "":
+        return "There is no URL to parse"
+    result = fetchWeb.parse_single_url(url)
+    if result:
+        return "Parse single url succeed: " + url
+    else:
+        return "Parse single url failed... " + url
+
 @app.route('/trigger_background_parsing')
 def parserWorker():
     taskqueue.add(queue_name='default', url='/perform_parsing', params={})

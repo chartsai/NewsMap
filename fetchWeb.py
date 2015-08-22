@@ -51,9 +51,12 @@ def test_parse_url():
 
 def parse_one_url(category, day, article_num):
     url = 'http://www.appledaily.com.tw/realtimenews/article/%s/%d/675%03d/' % (category, day, article_num)
+    parse_single_url(url)
+
+def parse_single_url(url):
     content = urllib2.urlopen(url).read()
     if "該則即時新聞不存在" in content:
-        return
+        return False
     else:
         soup = BeautifulSoup(content, from_encoding='utf-8',)
         title = str(soup.find("h1", {"id":"h1"}).string)
@@ -98,6 +101,7 @@ def parse_one_url(category, day, article_num):
 
         logging.info("Add news: " + str(news))
         news.writetodb()
+        return True
 
 def parse_all_url():
     for index in SECTIONS:
