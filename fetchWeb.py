@@ -105,6 +105,6 @@ def parse_single_url(url):
 
 def parse_all_url():
     for index in SECTIONS:
-        for day in range(0,7):
+        for day in range(0,7): # parse from last 7 days to today.
             for article_num in range(0,1000):
                 parse_one_url(index, int(today)-day, article_num)

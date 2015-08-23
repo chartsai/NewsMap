@@ -173,7 +173,8 @@
       function updateNewsDrawer(landmark_name, articles) {
         $("#landmark_name").html(landmark_name);
         var htmlstr = "";
-        for (i in articles) {
+        var i;
+        for (i=0; i<articles.length; i++) {
           var title = articles[i]["title"];
           var id = articles[i]["news_id"];
 
