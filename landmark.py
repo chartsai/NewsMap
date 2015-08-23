@@ -8,8 +8,8 @@ from google.appengine.ext import db
 
 import math
 
-LAT_DEVIATION = 0.005
-LNG_DEVIATION = 0.005
+LAT_DEVIATION = 0.003
+LNG_DEVIATION = 0.003
 
 def getlandmark(lat, lng):
     for latlng in LANDMARK_KEYWORDS:
