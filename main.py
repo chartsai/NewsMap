@@ -117,12 +117,13 @@ def is_keyword_in_news(keywords, title, content):
 def perform_create_landmark():
 
     logging.info("Start to create landmark database")
+
+    all_news = NewsModel.all()
     for latlng in landmark.LANDMARK_KEYWORDS:
         counter = 0
         keywords = landmark.LANDMARK_KEYWORDS[latlng]
         related_news_keys = []
-        newses = NewsModel.all()
-        for news in newses:
+        for news in all_news:
             result = is_keyword_in_news(keywords, news.title, news.content)
             if result == True:
                 related_news_keys.append(str(news.key()))
